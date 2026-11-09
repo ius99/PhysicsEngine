@@ -33,9 +33,12 @@ namespace cyclone {
             return (*this); 
         }
 
-        Vector3 operator*(const real value) { 
+        Vector3 operator*(const real value) const { 
             return Vector3(x*value, y*value, z*value); 
         }
+
+
+        //addition
 
         void operator+=(const Vector3& other) {
             x += other.x; 
@@ -43,14 +46,30 @@ namespace cyclone {
             z += other.z; 
         }
 
+        Vector3 operator+(const Vector3& other) const {
+            return Vector3(x+other.x, y+other.y, z+other.z); 
+        }
 
+        //subtraction
 
-    
+        void operator-=(const Vector3& other) {
+            //a-b = a+(-b)
+            x -= other.x; 
+            y -= other.y; 
+            z -= other.z; 
+        }
 
+        Vector3 operator-(const Vector3& other) const {
+            return Vector3(x-other.x, y-other.y, z-other.z); 
+        }
 
 
         //memeber functions
-        void invert() {} //returns inversion of the vector 
+        void invert() {
+            x = -x; 
+            y = -z; 
+            z = -z; 
+        } //returns inversion of the vector 
 
 
         real magnitude() {
@@ -69,6 +88,12 @@ namespace cyclone {
 
         real squaredMagnitude() {
             return (x*x + y*y + z*z); //because sqrt can be slow on some SLOW machines
+        }
+
+        void addScaledVector(const Vector3 other, real value) {
+            x += other.x * value; 
+            y += other.y * value; 
+            z += other.z * value; 
         }
 
 
